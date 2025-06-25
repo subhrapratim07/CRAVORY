@@ -10,10 +10,6 @@ app.use(cors({origin: "*"}));
 
 mongoose.connect('mongodb+srv://msubhra364:Subhra07@cluster0.0oq0nx4.mongodb.net/cravory');
 // Register
-app.get('/', (req, res) => {
-  console.log("hellow");
-  res.send("hellowworld");
-})
 
 app.post('/register', (req, res) => {
   console.log("request come");
@@ -56,4 +52,4 @@ app.get('/user-info/:email', async (req, res) => {
   }
 });
 
-app.listen(40001, () => console.log("Server listening on http://172.16.75.168:40001"));
+app.listen(40001, () => console.log("Server listening on locahost:40001"));

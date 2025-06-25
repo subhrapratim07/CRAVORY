@@ -15,7 +15,7 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.post('http://172.16.75.168:40001/login', { email, password })
+    axios.post('http://localhost:40001/login', { email, password })
       .then(result => {
         if (result.data === "Success") {
           toast.success('Login successful!');
