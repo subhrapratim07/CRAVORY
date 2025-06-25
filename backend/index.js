@@ -1,8 +1,8 @@
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
-const FormDataModel = require ('./models/FormData');
-
+const FormDataModel = require('./models/FormData');
+const BookTableModel = require('./models/BookTable');
 
 const app = express();
 app.use(express.json());
@@ -10,46 +10,45 @@ app.use(cors());
 
 mongoose.connect('mongodb+srv://msubhra364:Subhra07@cluster0.0oq0nx4.mongodb.net/employee');
 
-app.post('/register', (req, res)=>{
-    // To post / insert data into database
-
-    const {email} = req.body;
-    FormDataModel.findOne({email: email})
+// Register
+app.post('/register', (req, res) => {
+  const { email } = req.body;
+  FormDataModel.findOne({ email })
     .then(user => {
-        if(user){
-            res.json("Already registered")
-        }
-        else{
-            FormDataModel.create(req.body)
-            .then(log_reg_form => res.json(log_reg_form))
-            .catch(err => res.json(err))
-        }
-    })
-    
-})
-
-app.post('/login', (req, res)=>{
-    // To find record from the database
-    const {email, password} = req.body;
-    FormDataModel.findOne({email: email})
-    .then(user => {
-        if(user){
-            // If user found then these 2 cases
-            if(user.password === password) {
-                res.json("Success");
-            }
-            else{
-                res.json("Wrong password");
-            }
-        }
-        // If user not found then 
-        else{
-            res.json("No records found! ");
-        }
-    })
-})
-
-app.listen(40001, () => {
-    console.log("Server listining on http://127.0.0.1:4001");
-
+      if (user) res.json("Already registered");
+      else FormDataModel.create(req.body)
+        .then(log_reg_form => res.json(log_reg_form))
+        .catch(err => res.json(err));
+    });
 });
+
+// Login
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+  FormDataModel.findOne({ email })
+    .then(user => {
+      if (!user) return res.json("No records found!");
+      if (user.password === password) res.json("Success");
+      else res.json("Wrong password");
+    });
+});
+
+// Book table
+app.post('/book-table', (req, res) => {
+  BookTableModel.create(req.body)
+    .then(result => res.json({ message: "Booking Successful", data: result }))
+    .catch(err => res.status(500).json({ error: "Booking Failed", details: err }));
+});
+
+// Fetch user info by email
+app.get('/user-info/:email', async (req, res) => {
+  try {
+    const user = await FormDataModel.findOne({ email: req.params.email });
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json({ name: user.name, email: user.email, phone: user.phonenumber });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.listen(40001, () => console.log("Server listening on http://127.0.0.1:40001"));

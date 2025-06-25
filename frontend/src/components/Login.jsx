@@ -1,74 +1,105 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        
-        axios.post( 'http://localhost:40001/login', {email, password})
-        .then(result => {
-            console.log(result);
-            if(result.data === "Success"){
-                console.log("Login Success");
-                alert('Login successful!')
-                navigate('/home');
-            }
-            else{
-                alert('Incorrect password! Please try again.');
-            }
-        })
-        .catch(err => console.log(err));
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
+    axios.post('http://localhost:40001/login', { email, password })
+      .then(result => {
+        if (result.data === "Success") {
+          toast.success('Login successful!');
+          localStorage.setItem('userEmail', email);
+              setTimeout(() => {
+          navigate('/Home');
+        }, 3000);
+        } else {
+          toast.error('Incorrect password or user not found!');
+        }
+      })
+      .catch(() => toast.error('Server error. Please try again later.'));
+  };
 
-    return (
-        <div>
-            <div className="d-flex justify-content-center align-items-center text-center vh-100" style= {{backgroundImage : "linear-gradient(#00d5ff,#0095ff,rgba(93,0,255,.555))"}}>
-                <div className="bg-white p-3 rounded" style={{width : '40%'}}>
-                    <h2 className='mb-3 text-primary'>Login</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-3 text-start">
-                            <label htmlFor="exampleInputEmail1" className="form-label">
-                                <strong>Email Id</strong>
-                            </label>
-                            <input 
-                                type="email" 
-                                placeholder="Enter Email"
-                                className="form-control" 
-                                id="exampleInputEmail1" 
-                                onChange={(event) => setEmail(event.target.value)}
-                                required
-                            /> 
-                        </div>
-                        <div className="mb-3 text-start">
-                            <label htmlFor="exampleInputPassword1" className="form-label">
-                                <strong>Password</strong>
-                            </label>
-                            <input 
-                                type="password" 
-                                placeholder="Enter Password"
-                                className="form-control" 
-                                id="exampleInputPassword1" 
-                                onChange={(event) => setPassword(event.target.value)}
-                                required
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-primary">Login</button>
-                    </form>
-                    {/* TO add ' appostopee */}
-                    <p className='container my-2'>Don&apos;t have an account?</p>
-                    <Link to='/register' className="btn btn-secondary">Register</Link>
+  return (
+    <div
+      className="min-vh-100 d-flex align-items-center"
+      style={{
+        backgroundImage: "url('/logbg.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      <ToastContainer position="top-center" autoClose={3000} />
+      <div className="container">
+        <div className="row justify-content-center justify-content-lg-end">
+          <div className="col-12 col-sm-10 col-md-6 col-lg-4 me-lg-5">
+            <div className="bg-white p-4 rounded shadow w-100">
+              <h2 className="mb-4 text-center text-danger">Login</h2>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3 text-start">
+                  <label htmlFor="email" className="form-label fw-semibold">Email ID</label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter Email"
+                    className="form-control"
+                    onChange={e => setEmail(e.target.value)}
+                    value={email}
+                    required
+                  />
                 </div>
-            </div>
-        </div>
-    )
-}
 
-export default Login
+                <div className="mb-4 text-start position-relative">
+                  <label htmlFor="password" className="form-label fw-semibold">Password</label>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    placeholder="Enter Password"
+                    className="form-control"
+                    onChange={e => setPassword(e.target.value)}
+                    value={password}
+                    required
+                  />
+                  <span
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="position-absolute"
+                    style={{
+                      top: '70%',
+                      right: '15px',
+                      transform: 'translateY(-50%)',
+                      cursor: 'pointer',
+                      color: '#666',
+                    }}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                </div>
+
+                <div className="d-flex gap-2">
+                  <button type="submit" className="btn btn-danger w-50">Login</button>
+                  <Link to="/home" className="btn btn-warning w-50">Home</Link>
+                </div>
+              </form>
+
+              <p className="text-center my-3 mb-0">Don’t have an account?</p>
+              <Link to="/register" className="btn btn-outline-secondary w-100">Register</Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
