@@ -28,6 +28,9 @@ const BookTable = () => {
     const userEmail = localStorage.getItem('userEmail');
     if (!userEmail) {
       navigate('/home', { state: { toast: "Please login to book a table." } });
+      setTimeout(() => {
+          navigate('/Login');
+        }, 3000);
       return;
     }
 

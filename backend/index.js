@@ -6,12 +6,17 @@ const BookTableModel = require('./models/BookTable');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin: "*"}));
 
-mongoose.connect('mongodb+srv://msubhra364:Subhra07@cluster0.0oq0nx4.mongodb.net/employee');
-
+mongoose.connect('mongodb+srv://msubhra364:Subhra07@cluster0.0oq0nx4.mongodb.net/cravory');
 // Register
+app.get('/', (req, res) => {
+  console.log("hellow");
+  res.send("hellowworld");
+})
+
 app.post('/register', (req, res) => {
+  console.log("request come");
   const { email } = req.body;
   FormDataModel.findOne({ email })
     .then(user => {
@@ -51,4 +56,4 @@ app.get('/user-info/:email', async (req, res) => {
   }
 });
 
-app.listen(40001, () => console.log("Server listening on http://127.0.0.1:40001"));
+app.listen(40001, () => console.log("Server listening on http://172.16.75.168:40001"));
