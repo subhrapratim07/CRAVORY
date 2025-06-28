@@ -1,58 +1,40 @@
-# Login & Registration Form with MERN stack
+# 🍽️ Cravory – Restaurant Booking & Payment Platform
 
-## 👋 Introduction
+Cravory is a full-stack restaurant web application designed to streamline table booking and payment verification. With a clean UI and efficient backend, it offers users a seamless experience to book tables, submit payment proofs, and for admins to verify bookings effortlessly.
 
-Responsive user Registration and Login (SignIn & SignUp) Form functionality using React, NodeJS, ExpressJS and MongoDB and Bootstrap.
+## 🌟 Features
 
+### 👨‍🍳 For Customers
+- Book tables online with personal and batch details
+- Upload payment proof via QR-based payment
+- Responsive and mobile-friendly interface
+- Instant booking confirmation slip download
 
+### 🛠️ For Admins
+- View all customer bookings in a dashboard
+- Verify payment proofs submitted by customers
+- Manage and monitor all bookings in real-time
 
+## 🧑‍💻 Technologies Used
 
-## ❓Requirements
+### Frontend:
+- **React.js** (Vite)
+- **React Router DOM**
+- **Styled Components** / **Bootstrap**
+- **AOS Animation**
+- **React Icons**, **React Spinners**
 
-Before going forward you must have **Node js** installed on your machine.  
-Go to the link below for installation if you don't have installed yet.
+### Backend:
+- **Node.js**
+- **Express.js**
+- **Mongoose**
+- **MongoDB**
+- **Multer** (for file uploads)
+- **Cors**, **Dotenv**
 
-- [Node js](https://nodejs.org/en/download)
+### Others:
+- **Chart.js** (optional for analytics)
+- **jsPDF** (for generating downloadable slips)
 
+## 📁 Folder Structure
 
-## ⚙️ Installation & Getting started :
-
-1. Download the repository
-
-2. Unzip folder and open it with [VS Code](https://code.visualstudio.com/)
-
-- <h3> Frontend
-
-1. Open terminal & go to `cd frontend`
-
-2. Install dependencies by running `npm install` command
-
-3. Run the command `npm run dev` to start live server
-
-4. Click on `http://localhost:5173/`
-
-- <h3>Backend
-
-1. Open terminal & go to `cd backend` 
-
-2. install dependencies by running `npm install` command
-
-3. Run the command `npm start` or `nodemon index.js` to start live server on database
-
-
-- Congratulation 🎉 you have setup the environment successfully
-
-
-
-## 🛠️ Technology Used
-
-This project uses the following technologies:
-
-- [React](https://reactjs.org) and [React Router](https://reacttraining.com/react-router/) for frontend
-- [Express](http://expressjs.com/) and [Node](https://nodejs.org/en/) for the backend
-- [MongoDB](https://www.mongodb.com/) for the database
-- [Bootstrap](https://getbootstrap.com/) for styling
-
-<br/>
-
-<h2> Do not forget to give a star! ⭐🤗 </h2>
