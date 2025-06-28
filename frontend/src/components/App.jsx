@@ -5,6 +5,9 @@ import Register from './Register';
 import About from './About';
 import Contact from './Contact';
 import BookTable from './BookTable';
+import Footer from './Footer';
+import Nav from './Nav';
+import Menu from './Menu';
 
 function App() {
   return (
@@ -12,13 +15,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/footer" element={<Footer />} />
+        <Route path="/nav" element={<Nav />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        {/* ✅ Main route in lowercase */}
+        <Route path="/menu" element={<Menu />} />
         <Route path="/book-table" element={<BookTable />} />
-        {/* 🔁 Optional redirect from old uppercase route */}
         <Route path="/BookTable" element={<Navigate to="/book-table" replace />} />
       </Routes>
     </BrowserRouter>

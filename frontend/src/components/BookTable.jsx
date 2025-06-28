@@ -5,6 +5,8 @@ import jsPDF from 'jspdf';
 import * as QRCode from "qrcode";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Nav from './Nav';
+import Footer from './Footer';
 
 const BookTable = () => {
   const navigate = useNavigate();
@@ -177,7 +179,9 @@ const BookTable = () => {
   const timeSlots = getTimeSlots();
 
   return (
-    <div className="container mt-5">
+    <>
+    <Nav/>
+    <div className="container mt-5 mb-5">
       <ToastContainer position="top-center" autoClose={3000} />
       <h2 className="text-center mb-4">Book a Table</h2>
       <div className="row justify-content-center">
@@ -269,6 +273,8 @@ const BookTable = () => {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 
